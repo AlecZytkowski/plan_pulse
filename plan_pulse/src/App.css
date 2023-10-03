@@ -1,0 +1,85 @@
+.App {
+text-align: center;
+}
+
+
+
+.registrationForm {
+  display: flex;
+  justify-content: center;
+  padding-top: 50px;
+}
+
+.registrationForm h1 {
+color: black;
+
+}
+
+.registrationForm form{
+  max-width: 250px;
+}
+
+.registrationForm label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.registrationForm input, button {
+  width: 150px;
+  padding: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.registrationFormRegisterButton {
+  background-color: green;
+  color:white;
+  font-weight: bold;
+}
+
+.registrationFormExistingUserButton {
+  margin-top: 15px;
+  background-color: #3683f7;
+  color:white;
+  font-weight: bold;
+}
+
+
+
+.loginForm {
+  display: flex;
+  justify-content: center;
+  padding-top: 100px;
+
+}
+
+.loginForm form{
+  max-width: 250px;
+}
+
+.loginForm label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.loginForm input, button {
+  width: 150px;
+  padding: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.loginFormLoginButton {
+  background-color: #3683f7;
+  color:white;
+  font-weight: bold;
+}
+
+.loginFormRegistrationButton {
+  margin-top: 15px;
+  background-color: #f7a336;
+  color:black;
+  font-weight: bold;
+}
