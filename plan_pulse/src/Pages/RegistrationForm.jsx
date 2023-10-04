@@ -1,30 +1,41 @@
 import React, { useState } from 'react';
-import './App.css';
+import '../App.css';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export const RegistrationForm = ({ toggleForm }) => {
     const [formData, setFormData] = useState({
         username:'',
         email:'',
         password:''
-    })
+    });
+
+    const history = useNavigate();
 
     const handleChange = (e) => {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
         })
-    }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('./api/users/register', formData);
-            console.log(response.data)
+          const response = await axios.post('http://localhost:5000/api/users/register', formData);
+
+          console.log(response.data);
+
+          alert(response.data.message);
+
+          history.push('/login');
+
         } catch (error) {
-            console.error(error.response.data)
+          console.error('Registration failed:', error);
+
+          alert('Registration failed:', error);
         }
-    }
+      };
 
 
     return (

@@ -1,14 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const Event = require('../models/Event');
+const { authenticateUser } = require('../middleware/authMiddleware')
 
 
 
 // Route for event registration
-router.post('/createEvent', async (req, res) => {
+router.post('/createEvent', authenticateUser, async (req, res) => {
   try {
     
     const { title, description, startDateTime, endDateTime, createdBy } = req.body;
+
+  //Authenticate User
+  if (req.user._id.toString() !== createdBy) {
+    return res.status(403).json({message: 'You are not authorized to perform this action.'})
+  }
 
   // Create a new event.
   const newEvent = new Event({ title, description, startDateTime, endDateTime, createdBy });
@@ -69,6 +75,11 @@ router.put('/editEvent/:eventId', async (req, res) => {
 
     if (!editedEvent) {
       return res.status(404).json({ message: 'Event not found' });
+    }
+
+      //Authenticate User
+    if (req.user._id.toString() !== createdBy) {
+      return res.status(403).json({message: 'You are not authorized to perform this action.'})
     }
 
     res.status(200).json({ message: 'Event updated successfully', updatedEvent: editedEvent });

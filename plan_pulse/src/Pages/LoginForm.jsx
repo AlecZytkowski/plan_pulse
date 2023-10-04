@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import './App.css';
+import '../App.css';
 import axios from 'axios';
 
 export const LoginForm = ({ toggleForm }) => {
@@ -19,7 +19,7 @@ export const LoginForm = ({ toggleForm }) => {
         e.preventDefault();
         
         try {
-            const response = await axios.post('./api/users/login', formData);
+            const response = await axios.post('http://localhost:5000/api/users/login', formData);
             const { token } = response.data;
             localStorage.setItem('token', token);
             window.location.replace('./dashboard');

@@ -1,7 +1,10 @@
 import './App.css';
-import { RegistrationForm } from './RegistrationForm'
-import { LoginForm } from './LoginForm'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { WelcomePage } from './Pages/WelcomePage'
+import { RegistrationForm } from './Pages/RegistrationForm'
+import { LoginForm } from './Pages/LoginForm'
 import { useState } from 'react'
+
 
 function App() {
   const [isExistingUser, setIsExistingUser] = useState(false);
@@ -13,11 +16,16 @@ function App() {
 
   return (
     <div className="App">
-      {isExistingUser ? (
-        <LoginForm toggleForm={toggleForm} />
-      ) : (
-        <RegistrationForm toggleForm={toggleForm} />
-      )}
+      <Router>
+        <Routes>
+            <Route path="/" element={<WelcomePage />}>
+            </Route>
+            <Route path="/login" element={<LoginForm toggleForm={toggleForm} />}>
+            </Route>
+            <Route path="/register" element={<RegistrationForm toggleForm={toggleForm} />}>
+            </Route>
+        </Routes>
+      </Router>
     </div>
   );
 }
