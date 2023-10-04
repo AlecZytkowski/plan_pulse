@@ -10,7 +10,7 @@ export const RegistrationForm = ({ toggleForm }) => {
         password:''
     });
 
-    const history = useNavigate();
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setFormData({
@@ -18,6 +18,14 @@ export const RegistrationForm = ({ toggleForm }) => {
             [e.target.name]: e.target.value
         })
     };
+
+    const handleNavigation = (isExistingUser) => {
+        if (isExistingUser) {
+          navigate('/login');
+        } else {
+          navigate('/register');
+        }
+      };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -28,7 +36,7 @@ export const RegistrationForm = ({ toggleForm }) => {
 
           alert(response.data.message);
 
-          history.push('/login');
+          window.location.replace('./login');
 
         } catch (error) {
           console.error('Registration failed:', error);
@@ -65,12 +73,7 @@ export const RegistrationForm = ({ toggleForm }) => {
                     />
                     <button type='submit' className='registrationFormRegisterButton'>Register</button>
                     <hr />
-                    <button
-                        type='button'
-                        className='registrationFormExistingUserButton'
-                        onClick={toggleForm}>
-                        Existing User?
-                    </button>
+                    <button type='button' className='registrationFormExistingUserButton' onClick={() => handleNavigation(true)}>Existing User?</button>
             </form>
         </div>
     )

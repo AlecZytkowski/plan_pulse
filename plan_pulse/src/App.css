@@ -37,10 +37,23 @@ color: black;
   font-weight: bold;
 }
 
+.registrationFormRegisterButton:hover {
+  background-color: white;
+  color:green;
+  font-weight: bold;
+}
+
 .registrationFormExistingUserButton {
   margin-top: 15px;
   background-color: #3683f7;
   color:white;
+  font-weight: bold;
+}
+
+.registrationFormExistingUserButton:hover {
+  margin-top: 15px;
+  background-color: white;
+  color:#3683f7;
   font-weight: bold;
 }
 
@@ -76,10 +89,23 @@ color: black;
   font-weight: bold;
 }
 
+.loginFormLoginButton:hover{
+  background-color: white;
+  color: #3683f7;
+  font-weight: bold;
+}
+
 .loginFormRegistrationButton {
   margin-top: 15px;
   background-color: #f7a336;
   color:black;
+  font-weight: bold;
+}
+
+.loginFormRegistrationButton:hover {
+  margin-top: 15px;
+  background-color: black;
+  color: #f7a336;
   font-weight: bold;
 }
 
@@ -96,4 +122,20 @@ color: black;
 
 .welcomeMessage {
   padding-top: 20%;
+}
+
+.welcomeUserSelection {
+  color:red;
+}
+
+.welcomeUserSelectionButton {
+  margin: 20px;
+  border: solid blue 1px;
+  font-weight: bold;
+}
+
+.welcomeUserSelectionButton:hover {
+  border: solid white 1px;
+  background-color: blue;
+  color: white
 }

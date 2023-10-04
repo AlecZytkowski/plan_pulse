@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import '../App.css';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export const LoginForm = ({ toggleForm }) => {
     const [formData, setFormData] = useState ({
@@ -8,12 +9,22 @@ export const LoginForm = ({ toggleForm }) => {
         password: '',
     })
 
+    const navigate = useNavigate();
+
     const handleChange = (e) => {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
         })
     }
+
+    const handleNavigation = (isExistingUser) => {
+        if (isExistingUser) {
+          navigate('/login');
+        } else {
+          navigate('/register');
+        }
+      };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -49,13 +60,7 @@ export const LoginForm = ({ toggleForm }) => {
                 />
                 <button type="submit" className='loginFormLoginButton'>Log In</button>
                 <hr />
-                <button
-                    type='button'
-                    className='loginFormRegistrationButton'
-                    onClick={toggleForm}
-                    >
-                    Create a New Account
-                    </button>
+                <button type='button' className='loginFormRegistrationButton' onClick={() => handleNavigation(false)}>Create a New Account</button>
             </form>
         </div>
     )

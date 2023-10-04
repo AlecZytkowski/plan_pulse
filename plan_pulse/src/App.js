@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { WelcomePage } from './Pages/WelcomePage'
 import { RegistrationForm } from './Pages/RegistrationForm'
 import { LoginForm } from './Pages/LoginForm'
+import { Dashboard } from './Pages/Dashboard'; 
 import { useState } from 'react'
 
 
@@ -18,12 +19,10 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-            <Route path="/" element={<WelcomePage />}>
-            </Route>
-            <Route path="/login" element={<LoginForm toggleForm={toggleForm} />}>
-            </Route>
-            <Route path="/register" element={<RegistrationForm toggleForm={toggleForm} />}>
-            </Route>
+            <Route path="/" element={<WelcomePage />}></Route>
+            <Route path="/login" element={<LoginForm toggleForm={toggleForm} />}></Route>
+            <Route path="/register" element={<RegistrationForm toggleForm={toggleForm} />}></Route>
+            <Route path="/dashboard" element={<Dashboard />}></Route>
         </Routes>
       </Router>
     </div>
