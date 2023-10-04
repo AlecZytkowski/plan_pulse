@@ -1,10 +1,12 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { WelcomePage } from './Pages/WelcomePage'
-import { RegistrationForm } from './Pages/RegistrationForm'
-import { LoginForm } from './Pages/LoginForm'
+import { useState } from 'react';
+
+import { WelcomePage } from './Pages/WelcomePage';
+import { RegistrationForm } from './Pages/RegistrationForm';
+import { LoginForm } from './Pages/LoginForm';
 import { Dashboard } from './Pages/Dashboard'; 
-import { useState } from 'react'
+
 
 
 function App() {

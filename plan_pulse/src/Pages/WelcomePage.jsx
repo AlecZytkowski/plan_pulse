@@ -1,6 +1,8 @@
 import '../App.css'
 import { useNavigate } from 'react-router-dom';
 
+
+
 export const WelcomePage = () => {
     const navigate = useNavigate();
 
