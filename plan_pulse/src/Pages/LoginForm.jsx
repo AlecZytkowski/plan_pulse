@@ -33,10 +33,14 @@ export const LoginForm = ({ toggleForm }) => {
         
         try {
             const response = await axios.post('http://localhost:5000/api/users/login', formData);
+
             const { token } = response.data;
             localStorage.setItem('token', token);
+
             window.location.replace('./dashboard');
+            
         } catch (error) {
+            alert(`Login failed: ${error.response.data.message}`)
             console.error(error.response.data)
         }
     }

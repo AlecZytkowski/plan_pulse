@@ -41,9 +41,9 @@ export const RegistrationForm = ({ toggleForm }) => {
           window.location.replace('./login');
 
         } catch (error) {
-          console.error('Registration failed:', error);
+          console.error(error.response.data)
 
-          alert('Registration failed:', error);
+          alert(`Login failed: ${error.response.data.message}`)
         }
       };
 
