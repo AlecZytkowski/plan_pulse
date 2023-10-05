@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { WelcomePage } from './Pages/WelcomePage';
 import { RegistrationForm } from './Pages/RegistrationForm';
 import { LoginForm } from './Pages/LoginForm';
-import { Dashboard } from './Pages/Dashboard'; 
+import { Dashboard } from './Pages/Dashboard/Dashboard';
 
 
 
