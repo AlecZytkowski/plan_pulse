@@ -54,6 +54,7 @@ export const RegistrationForm = ({ toggleForm }) => {
                 <h1>Create a new account</h1>
                     <input
                     type='text'
+                    required
                     name='username'
                     placeholder='Username'
                     value={formData.username}
@@ -61,6 +62,7 @@ export const RegistrationForm = ({ toggleForm }) => {
                     />
                     <input
                     type='email'
+                    required
                     name='email'
                     placeholder='Email'
                     value={formData.email}
@@ -68,6 +70,7 @@ export const RegistrationForm = ({ toggleForm }) => {
                     />
                     <input
                     type='password'
+                    required
                     name='password'
                     placeholder='Password'
                     value={formData.password}

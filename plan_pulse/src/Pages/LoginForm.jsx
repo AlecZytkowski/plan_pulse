@@ -55,6 +55,7 @@ export const LoginForm = ({ toggleForm }) => {
                 
                 <input 
                 type='password'
+                required
                 name='password'
                 placeholder='Password'
                 value={formData.password}
