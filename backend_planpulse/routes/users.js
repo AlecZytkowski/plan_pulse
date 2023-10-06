@@ -66,4 +66,27 @@ router.post('/login', async (req, res) => {
   }
 });
 
+// Route for user search
+router.post('/search', async (req, res) => {
+  try {
+    
+    const { email, username } = req.body;
+
+    // Find the user by email
+    const user = await User.findOne({ email, username });
+
+    // If the user or email is not found, return an error
+    if (!user) {
+      return res.status(404).json({ message: 'User Not Found!' });
+    }
+
+    // If the user or email found, return user
+    return res.status(200).json(user);
+
+    } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 module.exports = router;
