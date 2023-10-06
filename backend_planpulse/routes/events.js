@@ -9,12 +9,9 @@ const { authenticateUser } = require('../middleware/authMiddleware');
 router.post('/createEvent', authenticateUser, async (req, res) => {
   try {
     
-    const { title, description, startDateTime, endDateTime, createdBy } = req.body;
+  const { title, description, startDateTime, endDateTime } = req.body;
 
-  //Authenticate User
-  if (req.user._id.toString() !== createdBy) {
-    return res.status(403).json({message: 'You are not authorized to perform this action.'})
-  }
+  const createdBy = req.user._id;
 
   // Create a new event.
   const newEvent = new Event({ title, description, startDateTime, endDateTime, createdBy });
@@ -28,6 +25,24 @@ router.post('/createEvent', authenticateUser, async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 
+});
+
+
+
+
+//Route for listing events
+router.get('/myEvents', authenticateUser, async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    const userEvents = await Event.find({ createdBy: userId })
+      .sort({ startDateTime: 1 });
+
+    res.status(200).json(userEvents);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
 });
 
 
