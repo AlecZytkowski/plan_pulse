@@ -3,8 +3,9 @@ const router = express.Router();
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { authenticateUser } = require('../middleware/authMiddleware');
 
-// Route for user registration
+// Route for user's registration
 router.post('/register', async (req, res) => {
   try {
     
@@ -33,7 +34,9 @@ router.post('/register', async (req, res) => {
 
 });
 
-// Route for user login
+
+
+// Route for user's login
 router.post('/login', async (req, res) => {
   try {
     
@@ -66,6 +69,8 @@ router.post('/login', async (req, res) => {
   }
 });
 
+
+
 // Route for user search
 router.post('/search', async (req, res) => {
   try {
@@ -73,20 +78,91 @@ router.post('/search', async (req, res) => {
     const { email, username } = req.body;
 
     // Find the user by email
-    const user = await User.findOne({ email, username });
+    const user = await User.findOne({ $or: [{ email }, { username }] });
 
     // If the user or email is not found, return an error
     if (!user) {
       return res.status(404).json({ message: 'User Not Found!' });
     }
 
-    // If the user or email found, return user
-    return res.status(200).json(user);
+    // If the user or email found, return user. Excluding password also.
+    const { password, ...userWithoutPassword } = user.toObject();
+
+    return res.status(200).json(userWithoutPassword);
 
     } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+
+
+// Route for retreiving user profile
+router.get('/profile', authenticateUser, async (req, res) => {
+  try {
+
+    // Fetch the user's information
+    const user = req.user;
+
+    // Remove password
+    const userProfile = {
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+    };
+
+    res.status(200).json({ user: userProfile });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
+
+// Route for updating the user's profile
+router.put('/profile', authenticateUser, async (req, res) => {
+
+// Helper function to validate email format
+function isValidEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+  
+  try {
+    const { username, email } = req.body;
+
+    // Fetch the user's profile based on the authenticated user
+    const user = req.user;
+
+    // Validate and update the user's profile data
+    if (username && username.length < 3) {
+      return res.status(400).json({ message: 'Username must be at least 3 characters long' });
+    }
+    if (email && !isValidEmail(email)) {
+      return res.status(400).json({ message: 'Invalid email format' });
+    }
+
+    // Update the user's profile data
+    if (username) {
+      user.username = username;
+    }
+    if (email) {
+      user.email = email;
+    }
+    // Add logic to update other fields as needed (e.g., profile picture)
+
+    // Save the updated user profile to the database
+    await user.save();
+
+    // Return a success message
+    res.status(200).json({ message: 'Profile updated successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
 
 module.exports = router;
