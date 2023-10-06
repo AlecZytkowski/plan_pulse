@@ -123,10 +123,10 @@ router.get('/profile', authenticateUser, async (req, res) => {
 // Route for updating the user's profile
 router.put('/profile', authenticateUser, async (req, res) => {
 
-// Helper function to validate email format
-function isValidEmail(email) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
+  // Email validation
+  function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
 }
   
   try {
@@ -150,12 +150,10 @@ function isValidEmail(email) {
     if (email) {
       user.email = email;
     }
-    // Add logic to update other fields as needed (e.g., profile picture)
 
-    // Save the updated user profile to the database
     await user.save();
 
-    // Return a success message
+    // Return a success message or error
     res.status(200).json({ message: 'Profile updated successfully' });
   } catch (error) {
     console.error(error);
