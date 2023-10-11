@@ -30,6 +30,11 @@ export const LoginForm = ({ toggleForm }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (formData.password.length < 8) {
+            alert('Password must be at least 8 characters long!');
+            return;
+          }
         
         try {
             const response = await axios.post('http://localhost:5000/api/users/login', formData);
@@ -50,11 +55,12 @@ export const LoginForm = ({ toggleForm }) => {
             <form onSubmit={handleSubmit}>
             <h1>Login</h1>
                 <input 
-                type='email'
+                type='email' required
                 name='email'
                 placeholder='Email'
                 value={formData.email}
                 onChange={handleChange}
+                pattern='^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
                 />
                 
                 <input 
