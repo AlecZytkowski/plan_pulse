@@ -5,6 +5,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { authenticateUser } = require('../middleware/authMiddleware');
 
+
+
 // Route for user's registration
 router.post('/register', async (req, res) => {
   try {
@@ -17,10 +19,12 @@ router.post('/register', async (req, res) => {
     return res.status(400).json({ message: 'User with this email already exists' });
   }
 
+
+
   // Create a new user
   const newUser = new User({ username, email, password });
 
-  // Hash the user's password before saving it to the database
+  // Hash the password before saving it to the database
   newUser.password = await bcrypt.hash(password, 10);
 
   // Save the user to the database
@@ -155,6 +159,33 @@ router.put('/profile', authenticateUser, async (req, res) => {
 
     // Return a success message or error
     res.status(200).json({ message: 'Profile updated successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// Route for deleting a user's profile
+router.delete('/profile', authenticateUser, async (req, res) => {
+  try {
+    const user = req.user;
+    const { password } = req.body;
+    
+    //Confirm user password
+    if (!password) {
+      return res.status(400).json({ message: 'Please provide your password for confirmation' });
+    }
+    
+    //Check if password is valid, if not throw Invalid Password
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: 'Invalid Password'})
+    }
+
+    //Confirm deletion
+    await User.findByIdAndDelete(user._id);
+    res.status(200).json({ message: 'Profile deleted successfully' });
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
