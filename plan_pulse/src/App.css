@@ -12,7 +12,7 @@ text-align: center;
   margin:30px;
   border-radius: 30px;
   border: solid gray 2px;
-  box-shadow: 2px 5px lightgrey;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background-color: #f0f0f0;
 }
 
@@ -75,7 +75,7 @@ color: black;
   margin:30px;
   border-radius: 30px;
   border: solid gray 2px;
-  box-shadow: 2px 5px lightgrey;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background-color: #f0f0f0;
 
 }
@@ -133,7 +133,7 @@ color: black;
   margin:30px;
   border-radius: 30px;
   border: solid gray 2px;
-  box-shadow: 2px 5px lightgrey;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background-color: #f0f0f0;
 }
 
