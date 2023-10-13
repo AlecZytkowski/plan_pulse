@@ -1,0 +1,59 @@
+  .create-event-container {
+  justify-content: center;
+  }
+  
+  .create-event-heading {
+    font-size: 28px;
+    margin-bottom: 1rem;
+    color: #007bff;
+  }
+  
+  .create-event-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .form-input,
+  .form-textarea {
+    padding: 15px;
+    margin: 0.25rem 0;
+    font-size: 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 5px;
+    outline: none;
+  }
+  
+  .form-input{
+    width: 200px;
+  }
+  
+  .form-textarea {
+    min-height: 100px;
+    resize: none;
+  }
+  
+  .create-event-button {
+    background-color: #007bff;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .create-event-button:hover {
+    background-color: #0056b3;
+  }
