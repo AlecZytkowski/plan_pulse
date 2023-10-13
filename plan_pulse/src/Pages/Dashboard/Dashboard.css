@@ -48,6 +48,8 @@
   }
   
   .dashboard-content {
+    display: flex;
+    justify-content: center;
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -56,4 +58,6 @@
     margin: 20px 0;
     width: 80%;
     min-height: 60vh;
+    max-height: 80vh;
+    overflow: auto;
   }
