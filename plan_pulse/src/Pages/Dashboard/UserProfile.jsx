@@ -9,7 +9,7 @@ export const UserProfile = () => {
     
     axios.get('http://localhost:5000/api/users/profile', {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Authorization: localStorage.getItem('token'),
       },
     })
     .then((response) => {
