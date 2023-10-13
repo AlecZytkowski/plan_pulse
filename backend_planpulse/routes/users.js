@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { authenticateUser } = require('../middleware/authMiddleware');
 
-
+//Look into adding 404 error routing!
 
 // Route for user's registration
 router.post('/register', async (req, res) => {

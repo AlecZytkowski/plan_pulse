@@ -7,6 +7,13 @@ text-align: center;
   display: flex;
   justify-content: center;
   padding-top: 50px;
+  padding: 30px;
+  margin-top: 100px;
+  margin:30px;
+  border-radius: 30px;
+  border: solid gray 2px;
+  box-shadow: 2px 5px lightgrey;
+  background-color: #f0f0f0;
 }
 
 .registrationForm h1 {
@@ -63,6 +70,13 @@ color: black;
   display: flex;
   justify-content: center;
   padding-top: 100px;
+  padding: 30px;
+  margin-top: 100px;
+  margin:30px;
+  border-radius: 30px;
+  border: solid gray 2px;
+  box-shadow: 2px 5px lightgrey;
+  background-color: #f0f0f0;
 
 }
 
@@ -114,9 +128,13 @@ color: black;
 .WelcomePage {
   display: flex;
   flex-direction: column;
-  width: 100vw;
-  height: 100vh;
-
+  padding: 30px;
+  margin-top: 100px;
+  margin:30px;
+  border-radius: 30px;
+  border: solid gray 2px;
+  box-shadow: 2px 5px lightgrey;
+  background-color: #f0f0f0;
 }
 
 .welcomeUserSelection {
@@ -125,6 +143,7 @@ color: black;
 
 .welcomeUserSelectionButton {
   margin: 20px;
+  background-color: rgb(0, 162, 255);
   border: solid blue 1px;
   font-weight: bold;
 }
