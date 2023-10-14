@@ -9,6 +9,12 @@ import { CreateEvent } from './CreateEvent';
 export const Dashboard = () => {
   const [selectedOption, setSelectedOption] = useState('calendar');
 
+  //Logout - Removes token and redirects to login page
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    window.location.href = '/login';
+  };
+
   return (
     <div className="dashboard-container">
       <div className="header-logo">
@@ -19,6 +25,7 @@ export const Dashboard = () => {
           <li onClick={() => setSelectedOption('calendar')}>Calendar</li>
           <li onClick={() => setSelectedOption('create-event')}>Create Event</li>
           <li onClick={() => setSelectedOption('profile')}>User Profile</li>
+          <li className="logoutButton" onClick={() => handleLogout()}>Log Out</li>
         </ul>
       </nav>
 
