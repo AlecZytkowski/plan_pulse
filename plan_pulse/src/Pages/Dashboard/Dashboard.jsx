@@ -1,5 +1,5 @@
 import './Dashboard.css';
-import { BrowserRouter as Router, Route, Routes, Link} from 'react-router-dom';
+
 import { useState } from 'react';
 
 import { UserProfile } from './UserProfile';
@@ -7,7 +7,7 @@ import { CalendarView } from './CalendarView';
 import { CreateEvent } from './CreateEvent';
 
 export const Dashboard = () => {
-  const [selectedOption, setSelectedOption] = useState('profile');
+  const [selectedOption, setSelectedOption] = useState('calendar');
 
   return (
     <div className="dashboard-container">
