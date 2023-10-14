@@ -8,7 +8,6 @@ import { CreateEvent } from './CreateEvent';
 
 export const Dashboard = () => {
   const [selectedOption, setSelectedOption] = useState('profile');
-  const [events, setEvents] = useState([]);
 
   return (
     <div className="dashboard-container">
@@ -25,8 +24,8 @@ export const Dashboard = () => {
 
       <div className="dashboard-content">
         {selectedOption === 'calendar' && <CalendarView />}
-        {selectedOption === 'create-event' && <CreateEvent setEvents={setEvents}/>}
-        {selectedOption === 'profile' && <UserProfile  events={events}/>}
+        {selectedOption === 'create-event' && <CreateEvent />}
+        {selectedOption === 'profile' && <UserProfile />}
       </div>
     </div>
   );
