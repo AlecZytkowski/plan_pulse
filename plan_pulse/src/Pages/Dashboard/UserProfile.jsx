@@ -4,6 +4,11 @@ import axios from 'axios';
 
 export const UserProfile = () => {
     const [userData, setUserData] = useState(null);
+    const [editProfile, setEditProfile] = useState(false)
+    const [newProfileInformation, setNewProfileInformation] = useState({
+      username:'',
+      userImageUrl:'',
+  })
 
     useEffect(() => {
     
@@ -20,15 +25,98 @@ export const UserProfile = () => {
     });
   }, []);
 
+  const handleEditProfile = () => {
+    setEditProfile(!editProfile)
+  }
+
+  const handleDiscard = () => {
+    setEditProfile(false)
+    setNewProfileInformation({
+      username:'',
+      userImageUrl:'',
+  })
+  }
+
+  const handleSaveProfile = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.put(
+        'http://localhost:5000/api/users/profile',
+        newProfileInformation,
+        {
+          headers: {
+            Authorization: localStorage.getItem('token'),
+          },
+        }
+      );
+
+      console.log(response.data);
+      alert(response.data.message)
+
+      setNewProfileInformation({
+        username:'',
+        userImageUrl:'',
+    })
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleChange = (e) => {
+    setNewProfileInformation({
+        ...newProfileInformation,
+        [e.target.name]: e.target.value
+    })
+};
+
     return (
         <div>
           <h1>User Profile</h1>
           {userData && (
-            <div>
-              <p>Username: {userData.username}</p>
-              <p>Email: {userData.email}</p>
-            </div>
+              <div>
+                <h1>Welcome {userData.username}!</h1>
+                <img className='userImage' src={userData.userImageUrl} alt={userData.username}/>
+                <p>Username: {userData.username}</p>
+                <p>Email: {userData.email}</p>
+              </div>
           )}
+          <div>
+            {!editProfile && (
+              <button onClick={handleEditProfile}>Edit Profile</button>
+            )}
+            {editProfile && (
+              <div>
+              <hr/>
+                <div>
+                <form className='editProfileForm'>
+                  <label>Enter a new username: </label>
+                  <input
+                      type='text'
+                      required
+                      name='username'
+                      placeholder='Username'
+                      value={newProfileInformation.username}
+                      onChange={handleChange}
+                      autoComplete={userData.username}
+                      />
+                  <label>URL of your photo: </label>
+                  <input
+                      type='url'
+                      name='userImageUrl'
+                      placeholder='Enter a URL'
+                      value={newProfileInformation.userImageUrl}
+                      onChange={handleChange}
+                      />
+
+                  <button type='submit' className='saveChangesButton' onClick={handleSaveProfile}>Save Changes</button>
+                  <button className='discardChangesButton' onClick={handleDiscard}>Discard Changes</button>
+                </form>
+                </div>
+              </div>
+            )}
+            
+          </div>
         </div>
       )
 }
