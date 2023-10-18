@@ -1,6 +1,7 @@
 import './Dashboard.css';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import { UserProfile } from './UserProfile';
 import { CalendarView } from './CalendarView';
@@ -8,12 +9,30 @@ import { CreateEvent } from './CreateEvent';
 
 export const Dashboard = () => {
   const [selectedOption, setSelectedOption] = useState('calendar');
+  const [userData, setUserData] = useState({
+    
+  });
 
   //Logout - Removes token and redirects to login page
   const handleLogout = () => {
     localStorage.removeItem('token');
     window.location.href = '/login';
   };
+
+  useEffect(() => {
+    
+    axios.get('http://localhost:5000/api/users/profile', {
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
+    })
+    .then((response) => {
+      setUserData(response.data.user);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }, []);
 
   return (
     <div className="dashboard-container">
@@ -24,7 +43,7 @@ export const Dashboard = () => {
         <ul>
           <li onClick={() => setSelectedOption('calendar')}>Calendar</li>
           <li onClick={() => setSelectedOption('create-event')}>Create Event</li>
-          <li onClick={() => setSelectedOption('profile')}>User Profile</li>
+          <li  onClick={() => setSelectedOption('profile')} className='currentUser'> {userData.username} <img className="userLogo" src={userData.userImageUrl} alt='User Icon'></img></li>
           <li className="logoutButton" onClick={() => handleLogout()}>Log Out</li>
         </ul>
       </nav>
