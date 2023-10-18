@@ -113,6 +113,8 @@ router.get('/profile', authenticateUser, async (req, res) => {
       _id: user._id,
       username: user.username,
       email: user.email,
+      userImageUrl: user.userImageUrl
+      
     };
 
     res.status(200).json({ user: userProfile });
@@ -127,14 +129,8 @@ router.get('/profile', authenticateUser, async (req, res) => {
 // Route for updating the user's profile
 router.put('/profile', authenticateUser, async (req, res) => {
 
-  // Email validation
-  function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
-  
   try {
-    const { username, email } = req.body;
+    const { username, userImageUrl } = req.body;
 
     // Fetch the user's profile based on the authenticated user
     const user = req.user;
@@ -143,16 +139,13 @@ router.put('/profile', authenticateUser, async (req, res) => {
     if (username && username.length < 3) {
       return res.status(400).json({ message: 'Username must be at least 3 characters long' });
     }
-    if (email && !isValidEmail(email)) {
-      return res.status(400).json({ message: 'Invalid email format' });
-    }
 
     // Update the user's profile data
     if (username) {
       user.username = username;
     }
-    if (email) {
-      user.email = email;
+    if (userImageUrl) {
+      user.userImageUrl = userImageUrl;
     }
 
     await user.save();
