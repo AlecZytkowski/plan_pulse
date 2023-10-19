@@ -107,24 +107,24 @@ router.put('/editEvent/:eventId', async (req, res) => {
 
 
 // Route for deleting events.
-router.delete('/deleteEvent', authenticateUser, async (req, res) => {
+router.delete('/deleteEvent/:eventId', authenticateUser, async (req, res) => {
   try {
-    const eventId = req.body.eventId;
+    const eventId = req.params.eventId;
     
-    //Check if the user is authenticated and authorized (if needed) to delete the event
+    //Check if the user is authenticated to delete the event
     if (req.user) {
       
       //Delete the event
       const deletedEvent = await Event.findByIdAndDelete(eventId);
 
-      //Error if event cannot be found
+      //Handle for when the event cannot be found
       if (!deletedEvent) {
         return res.status(404).json({ message: 'Event not found' });
       }
 
       return res.status(200).json({ message: 'Event deleted successfully' });
     } else {
-      //If user is not authenticated throw error
+      // If the user is not authenticated
       return res.status(401).json({ message: 'Unauthorized' });
     }
   } catch (error) {
@@ -132,5 +132,7 @@ router.delete('/deleteEvent', authenticateUser, async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+
+
 
 module.exports = router;
