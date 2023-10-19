@@ -4,33 +4,29 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export const CalendarView = () => {
-
-  //State management of events and months
   const [events, setEvents] = useState([]);
   const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
   useEffect(() => {
-    // Fetch user events from the backend
-    axios
-      .get('http://localhost:5000/api/events/myEvents', {
-        headers: {
-          Authorization: localStorage.getItem('token'),
-        },
-      })
-      .then((response) => {
+    const fetchEvents = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/events/myEvents', {
+          headers: {
+            Authorization: localStorage.getItem('token'),
+          },
+        });
         setEvents(response.data);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error(error);
-      });
+      }
+    };
+    fetchEvents();
   }, []);
 
-  //Get current date and put into an array of days for current month
   const daysInMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0).getDate();
   const daysArray = Array.from({ length: daysInMonth }, (_, index) => index + 1);
 
-  
-  //Function to handle navigation by month, and set array of the days of the week
   const navigateToPreviousMonth = () => {
     setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1));
   };
@@ -42,6 +38,37 @@ export const CalendarView = () => {
   const getDayOfWeek = (date) => {
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     return daysOfWeek[date.getDay()];
+  };
+
+  const handleEventClick = (event) => {
+    setSelectedEvent(event);
+  };
+
+  const closeEventModal = () => {
+    setSelectedEvent(null);
+  };
+
+  const handleDeleteEvent = async () => {
+    if (selectedEvent) {
+      try {
+        await axios.delete(`http://localhost:5000/api/events/deleteEvent/${selectedEvent._id}`, {
+          headers: {
+            Authorization: localStorage.getItem('token'),
+          },
+        });
+  
+        const response = await axios.get('http://localhost:5000/api/events/myEvents', {
+          headers: {
+            Authorization: localStorage.getItem('token'),
+          },
+        });
+        setEvents(response.data);
+  
+        setSelectedEvent(null);
+      } catch (error) {
+        console.error(error);
+      }
+    }
   };
 
   return (
@@ -65,12 +92,17 @@ export const CalendarView = () => {
                 {events
                   .filter((event) => {
                     const eventDate = new Date(event.startDateTime);
-                    return (eventDate.getFullYear() === currentMonth.getFullYear() && eventDate.getMonth() === currentMonth.getMonth() && eventDate.getDate() === day );
+                    return (
+                      eventDate.getFullYear() === currentMonth.getFullYear() &&
+                      eventDate.getMonth() === currentMonth.getMonth() &&
+                      eventDate.getDate() === day
+                    );
                   })
                   .map((event) => (
-                    <li key={event._id}>
+                    <li key={event._id} onClick={() => handleEventClick(event)}>
                       {event.title} (
-                      {`${new Date(event.startDateTime).getHours()}:${String(new Date(event.startDateTime).getMinutes()).padStart(2, '0')}`} -{' '}
+                      {`${new Date(event.startDateTime).getHours()}:${String(new Date(event.startDateTime).getMinutes()).padStart(2,'0')}`}
+                      {' '}-{' '}
                       {`${new Date(event.endDateTime).getHours()}:${String(new Date(event.endDateTime).getMinutes()).padStart(2, '0')}`})
                     </li>
                   ))}
@@ -79,6 +111,26 @@ export const CalendarView = () => {
           ))}
         </div>
       </div>
+      {selectedEvent && (
+        <div className="modal">
+          <div className="modal-content">
+            <div>
+            <span className="close" onClick={closeEventModal}>
+              &times;
+            </span>
+            </div>
+            <div>
+            <h3>{selectedEvent.title}</h3>
+            <p>
+              {new Date(selectedEvent.startDateTime).toLocaleString()} - {' '}
+              {new Date(selectedEvent.endDateTime).toLocaleString()}
+            </p>
+            <p>{selectedEvent.description}</p>
+            <button class='deleteEventButton' onClick={handleDeleteEvent}>Delete Event</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
