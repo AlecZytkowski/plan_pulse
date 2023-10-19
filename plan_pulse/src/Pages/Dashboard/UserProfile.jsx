@@ -10,6 +10,8 @@ export const UserProfile = () => {
       userImageUrl:'',
   })
 
+
+
     useEffect(() => {
     
     axios.get('http://localhost:5000/api/users/profile', {
@@ -25,9 +27,14 @@ export const UserProfile = () => {
     });
   }, []);
 
+
+
+
   const handleEditProfile = () => {
     setEditProfile(!editProfile)
   }
+
+
 
   const handleDiscard = () => {
     setEditProfile(false)
@@ -54,6 +61,8 @@ export const UserProfile = () => {
       console.log(response.data);
       alert(response.data.message)
 
+      setUserData({ ...userData, username: newProfileInformation.username });
+
       setNewProfileInformation({
         username:'',
         userImageUrl:'',
@@ -63,12 +72,16 @@ export const UserProfile = () => {
     }
   };
 
+
+
   const handleChange = (e) => {
     setNewProfileInformation({
         ...newProfileInformation,
         [e.target.name]: e.target.value
     })
 };
+
+
 
     return (
         <div>
@@ -98,7 +111,7 @@ export const UserProfile = () => {
                       placeholder='Username'
                       value={newProfileInformation.username}
                       onChange={handleChange}
-                      autoComplete={userData.username}
+                      autoComplete='off'
                       />
                   <label>URL of your photo: </label>
                   <input
@@ -107,6 +120,7 @@ export const UserProfile = () => {
                       placeholder='Enter a URL'
                       value={newProfileInformation.userImageUrl}
                       onChange={handleChange}
+                      autoComplete='off'
                       />
 
                   <button type='submit' className='saveChangesButton' onClick={handleSaveProfile}>Save Changes</button>
