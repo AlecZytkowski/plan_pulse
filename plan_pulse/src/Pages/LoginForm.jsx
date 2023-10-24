@@ -51,30 +51,32 @@ export const LoginForm = ({ toggleForm }) => {
     }
 
     return (
-        <div className='loginForm'>
-            <form onSubmit={handleSubmit}>
-            <h1>Login</h1>
-                <input 
-                type='email' required
-                name='email'
-                placeholder='Email'
-                value={formData.email}
-                onChange={handleChange}
-                pattern='^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-                />
-                
-                <input 
-                type='password'
-                required
-                name='password'
-                placeholder='Password'
-                value={formData.password}
-                onChange={handleChange}
-                />
-                <button type="submit" className='loginFormLoginButton'>Log In</button>
-                <hr />
-                <button type='button' className='loginFormRegistrationButton' onClick={() => handleNavigation(false)}>Create a New Account</button>
-            </form>
+        <div className='loginFormContainer'>
+            <div className='loginForm'>
+                <form onSubmit={handleSubmit}>
+                <h1>Login</h1>
+                    <input 
+                    type='email' required
+                    name='email'
+                    placeholder='Email'
+                    value={formData.email}
+                    onChange={handleChange}
+                    pattern='^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+                    />
+                    
+                    <input 
+                    type='password'
+                    required
+                    name='password'
+                    placeholder='Password'
+                    value={formData.password}
+                    onChange={handleChange}
+                    />
+                    <button type="submit" className='loginFormLoginButton'>Log In</button>
+                    <hr />
+                    <button type='button' className='loginFormRegistrationButton' onClick={() => handleNavigation(false)}>Create a New Account</button>
+                </form>
+            </div>
         </div>
     )
 }
