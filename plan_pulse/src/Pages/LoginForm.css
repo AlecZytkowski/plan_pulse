@@ -1,0 +1,56 @@
+.loginForm {
+    display: flex;
+    justify-content: center;
+    padding-top: 100px;
+    padding: 30px;
+    margin-top: 100px;
+    margin:30px;
+    border-radius: 30px;
+    border: solid gray 2px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #f0f0f0;
+  
+  }
+  
+  .loginForm form{
+    max-width: 250px;
+  }
+  
+  .loginForm label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .loginForm input, button {
+    width: 150px;
+    padding: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .loginFormLoginButton {
+    background-color: #3683f7;
+    color:white;
+    font-weight: bold;
+  }
+  
+  .loginFormLoginButton:hover{
+    background-color: white;
+    color: #3683f7;
+    font-weight: bold;
+  }
+  
+  .loginFormRegistrationButton {
+    margin-top: 15px;
+    background-color: #f7a336;
+    color:black;
+    font-weight: bold;
+  }
+  
+  .loginFormRegistrationButton:hover {
+    margin-top: 15px;
+    background-color: black;
+    color: #f7a336;
+    font-weight: bold;
+  }  
