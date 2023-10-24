@@ -1,0 +1,41 @@
+.WelcomePage {
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    margin-top: 100px;
+    margin:30px;
+    border-radius: 30px;
+    border: solid gray 2px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #f0f0f0;
+  }
+  
+  .welcomeUserSelection {
+    color:red;
+  }
+  
+  .welcomeUserSelectionButton {
+    margin: 20px;
+    background-color: rgb(0, 162, 255);
+    border: solid blue 1px;
+    font-weight: bold;
+  }
+  
+  .welcomeUserSelectionButton:hover {
+    border: solid white 1px;
+    background-color: blue;
+    color: white
+  }
+  
+  /*Welcome Screen Logo*/
+  
+  .header-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .logo-image {
+    max-width: 250px;
+    max-height: 150px;
+  }
