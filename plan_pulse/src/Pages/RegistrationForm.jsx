@@ -54,6 +54,7 @@ export const RegistrationForm = ({ toggleForm }) => {
 
 
     return (
+      <div className='registrationFormContainer'>
         <div className='registrationForm'>
             <form onSubmit={handleSubmit}>
                 <h1>Create a new account</h1>
@@ -86,5 +87,6 @@ export const RegistrationForm = ({ toggleForm }) => {
                     <button type='button' className='registrationFormExistingUserButton' onClick={() => handleNavigation(true)}>Existing User?</button>
             </form>
         </div>
+      </div>
     )
 }
