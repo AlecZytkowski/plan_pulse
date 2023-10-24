@@ -15,15 +15,16 @@ export const WelcomePage = () => {
     };
 
     return (
+      <div className='WelcomePageContainer'>
         <div className='WelcomePage'>
             <div className="header-logo">
               <img src={process.env.PUBLIC_URL + '/PlanPulseLogo.png'} alt="Plan Pulse Logo" className="logo-image" />
             </div>
-            <h1 className='welcomeMessage'>Welcome to Plan Pulse</h1>
             <div className='welcomeUserSelectionDiv'>
                 <button className='welcomeUserSelectionButton' onClick={() => handleNavigation(true)}>Existing User</button>
                 <button className='welcomeUserSelectionButton' onClick={() => handleNavigation(false)}>New User</button>
             </div>
         </div>
+      </div>
   );
 }
