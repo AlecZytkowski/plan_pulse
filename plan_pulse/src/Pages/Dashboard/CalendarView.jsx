@@ -1,5 +1,6 @@
-import './CalendarView.css';
+// CalendarView.jsx
 
+import './CalendarView.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -56,14 +57,13 @@ export const CalendarView = () => {
             Authorization: localStorage.getItem('token'),
           },
         });
-  
+
         const response = await axios.get('http://localhost:5000/api/events/myEvents', {
           headers: {
             Authorization: localStorage.getItem('token'),
           },
         });
         setEvents(response.data);
-  
         setSelectedEvent(null);
       } catch (error) {
         console.error(error);
@@ -72,20 +72,24 @@ export const CalendarView = () => {
   };
 
   return (
-    <div>
+    <div className='calendar-container'>
       <div className="calendar">
         <div className="calendar-header">
           <h2>
             {currentMonth.toLocaleString('default', { month: 'long' })} {currentMonth.getFullYear()}
           </h2>
           <div className="calendar-nav">
-            <button onClick={navigateToPreviousMonth}>Previous Month</button>
-            <button onClick={navigateToNextMonth}>Next Month</button>
+            <button className="nav-button" onClick={navigateToPreviousMonth}>
+              Previous Month
+            </button>
+            <button className="nav-button" onClick={navigateToNextMonth}>
+              Next Month
+            </button>
           </div>
         </div>
         <div className="calendar-grid">
           {daysArray.map((day) => (
-            <div key={day} className="calendar-day">
+            <div key={day} className="calendar-day" onClick={() => handleEventClick(events[0])}>
               <h2>{day}</h2>
               <span>({getDayOfWeek(new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day))})</span>
               <ul>
@@ -101,9 +105,7 @@ export const CalendarView = () => {
                   .map((event) => (
                     <li key={event._id} onClick={() => handleEventClick(event)}>
                       {event.title} (
-                      {`${new Date(event.startDateTime).getHours()}:${String(new Date(event.startDateTime).getMinutes()).padStart(2,'0')}`}
-                      {' '}-{' '}
-                      {`${new Date(event.endDateTime).getHours()}:${String(new Date(event.endDateTime).getMinutes()).padStart(2, '0')}`})
+                      {`${new Date(event.startDateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${new Date(event.endDateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`})
                     </li>
                   ))}
               </ul>
@@ -112,21 +114,23 @@ export const CalendarView = () => {
         </div>
       </div>
       {selectedEvent && (
-        <div className="modal">
-          <div className="modal-content">
+        <div className="modal" onClick={closeEventModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <div>
-            <span className="close" onClick={closeEventModal}>
-              &times;
-            </span>
+              <span className="close" onClick={closeEventModal}>
+                &times;
+              </span>
             </div>
             <div>
-            <h3>{selectedEvent.title}</h3>
-            <p>
-              {new Date(selectedEvent.startDateTime).toLocaleString()} - {' '}
-              {new Date(selectedEvent.endDateTime).toLocaleString()}
-            </p>
-            <p>{selectedEvent.description}</p>
-            <button class='deleteEventButton' onClick={handleDeleteEvent}>Delete Event</button>
+              <h3>{selectedEvent.title}</h3>
+              <p>
+                {new Date(selectedEvent.startDateTime).toLocaleString()} -{' '}
+                {new Date(selectedEvent.endDateTime).toLocaleString()}
+              </p>
+              <p>{selectedEvent.description}</p>
+              <button className="deleteEventButton" onClick={handleDeleteEvent}>
+                Delete Event
+              </button>
             </div>
           </div>
         </div>
