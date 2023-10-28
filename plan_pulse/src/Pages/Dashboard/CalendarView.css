@@ -4,7 +4,7 @@
 }
 
 .calendar-header h2 {
-  font-size: 28px;
+  font-size: 24px;
   text-transform: uppercase;
   color: black;
 }
@@ -27,8 +27,7 @@
 
 .calendar-grid {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: repeat(6, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
   gap: 20px;
   padding: 1rem;
   border: 1px solid #ddd;
@@ -52,13 +51,13 @@
 }
 
 .calendar-day h2 {
-  font-size: 24px;
+  font-size: 18px;
   color: black;
   margin: 0;
 }
 
 .calendar-day span {
-  font-size: 16px;
+  font-size: 14px;
   color: #555;
 }
 
@@ -68,7 +67,7 @@
 }
 
 .calendar-day ul li {
-  font-size: 18px;
+  font-size: 16px;
   color: black;
   margin: 5px 0;
   transition: color 0.3s;
@@ -81,12 +80,12 @@
 
 .calendar-day ul li::before {
   content: '';
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   background-color: #007bff;
   border-radius: 50%;
   display: inline-block;
-  margin-right: 10px;
+  margin-right: 8px;
 }
 
 .modal {
@@ -109,7 +108,7 @@
   padding: 20px;
   border: 1px solid gray;
   border-radius: 10px;
-  width: 70%;
+  width: 90%;
   max-width: 600px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
