@@ -17,8 +17,8 @@ export const WelcomePage = () => {
     return (
       <div className='WelcomePageContainer'>
         <div className='WelcomePage'>
-            <div className="header-logo">
-              <img src={process.env.PUBLIC_URL + '/PlanPulseLogo.png'} alt="Plan Pulse Logo" className="logo-image" />
+            <div className="welcome-header-logo">
+              <img src={process.env.PUBLIC_URL + '/PlanPulseLogo.png'} alt="Plan Pulse Logo" className="welcome-logo-image" />
             </div>
             <div className='welcomeUserSelectionDiv'>
                 <button className='welcomeUserSelectionButton' onClick={() => handleNavigation(true)}>Existing User</button>
