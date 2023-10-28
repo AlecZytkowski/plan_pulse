@@ -7,7 +7,7 @@ import { UserProfile } from './UserProfile';
 import { CalendarView } from './CalendarView';
 import { CreateEvent } from './CreateEvent';
 
-export const Dashboard = () => {
+export const Dashboard = ({ setAuthenticated }) => {
   const [selectedOption, setSelectedOption] = useState('calendar');
   const [userData, setUserData] = useState({
     
@@ -16,6 +16,9 @@ export const Dashboard = () => {
   //Logout - Removes token and redirects to login page
   const handleLogout = () => {
     localStorage.removeItem('token');
+
+    setAuthenticated(false);
+
     window.location.href = '/login';
   };
 
