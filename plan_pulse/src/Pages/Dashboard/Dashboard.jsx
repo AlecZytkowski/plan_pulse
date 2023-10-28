@@ -39,7 +39,7 @@ export const Dashboard = ({ setAuthenticated }) => {
 
   return (
     <div className="dashboard-container">
-      <div className="header-logo">
+      <div className="dashboard-header-logo">
         <img src={process.env.PUBLIC_URL + '/PlanPulseLogo.png'} alt="Plan Pulse Logo" className="logo-image" />
       </div>
       <nav className="navbar">
