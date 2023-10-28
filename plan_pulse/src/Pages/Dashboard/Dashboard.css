@@ -1,20 +1,23 @@
   .header-logo {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    background-color: #222;
   }
 
   .logo-image {
-    max-width: 250px;
+    max-width: 350px;
     max-height: 150px;
+    filter: invert(100%); 
+
   }
   
   .navbar {
     display: flex;
-    justify-content: space-around;
-    width: 100vw;
+    justify-content: center;
     background-color: #222;
-    padding: 20px 0;
+    padding: 10px 20px;
+    align-items: center;
   }
 
   .navbar ul {
@@ -26,14 +29,14 @@
   }
 
   .navbar li {
-    margin: 0 40px;
+    display: flex;
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
     color: white;
     transition: color 0.3s;
+    margin-right: 100px;
     align-items: center;
-    justify-content: center;
   }
 
   .navbar li:hover {
@@ -41,17 +44,17 @@
   }
 
   .logoutButton {
-    padding: 12px 20px;
+    padding: 10px 20px;
     background-color: red;
     color: white;
     border-radius: 5px;
-    
+    text-transform: uppercase;
+    cursor: pointer;
   }
 
   .logoutButton:hover{
     transition: background-color 0.3s;
     background-color: #d10303;
-    color: white;
   }
 
   .currentUser {
@@ -67,4 +70,25 @@
     padding: 10px;
     height: 20px;
     width: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .navbar ul {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .navbar li {
+      margin: 10px 0;
+      font-size: 16px;
+    }
+  
+    .logoutButton {
+      margin-top: 10px;
+    }
   }
