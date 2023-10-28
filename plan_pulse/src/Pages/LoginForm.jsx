@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-export const LoginForm = ({ toggleForm }) => {
+export const LoginForm = ({ toggleForm, setAuthenticated }) => {
     const [formData, setFormData] = useState ({
         email:'',
         password: '',
@@ -38,14 +38,17 @@ export const LoginForm = ({ toggleForm }) => {
         
         try {
             const response = await axios.post('http://localhost:5000/api/users/login', formData);
-
             const { token } = response.data;
             localStorage.setItem('token', token);
+            setAuthenticated(true);
 
-            window.location.replace('./dashboard');
+            navigate('/dashboard');
             
         } catch (error) {
+            setAuthenticated(false);
+
             alert(`Login failed: ${error.response.data.message}`)
+            
             console.error(error.response.data)
         }
     }
@@ -61,7 +64,6 @@ export const LoginForm = ({ toggleForm }) => {
                     placeholder='Email'
                     value={formData.email}
                     onChange={handleChange}
-                    pattern='^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
                     />
                     
                     <input 
