@@ -1,4 +1,3 @@
-// CalendarView.jsx
 
 import './CalendarView.css';
 import { useState, useEffect } from 'react';
