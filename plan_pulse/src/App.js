@@ -11,13 +11,17 @@ import { ProtectedRoute } from './ProtectedRoute';
 
 
 function App() {
+  //State management for if existing user or not, to determine if user should go to login/registration page.
+  //Setting initial state for user authentication to now allow redirects if not logged in.
   const [isExistingUser, setIsExistingUser] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
 
+  //Allows user to toggle between login/exisiting user pages.
   const toggleForm = () => {
     setIsExistingUser((prevState) => !prevState);
   };
 
+  //Function for retrieving user's token from sign in, and sets state to true to allow user access to different pages.
   const checkAuthentication = () => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -25,6 +29,7 @@ function App() {
     }
   };
 
+  //useEffect hook to check if the user is authenticated and allowed to proceed to different pages.
   useEffect(() => {
     checkAuthentication();
   }, []);

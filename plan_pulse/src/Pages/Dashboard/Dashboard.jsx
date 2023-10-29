@@ -8,30 +8,37 @@ import { CalendarView } from './CalendarView';
 import { CreateEvent } from './CreateEvent';
 
 export const Dashboard = ({ setAuthenticated }) => {
+  //Initial state/view on the dashboard is the calendar, and render's the logged in user's calendar.
   const [selectedOption, setSelectedOption] = useState('calendar');
-  const [userData, setUserData] = useState({
-    
-  });
+  
+  //State for tracking the currently logged in user's information for rendering.
+  const [userData, setUserData] = useState({});
 
-  //Logout - Removes token and redirects to login page
+  //Logout function. Removes token and redirects to login page.
   const handleLogout = () => {
+    //Removes the user's stored JWT Token from browser memory.
     localStorage.removeItem('token');
 
+    //Sets user's authentication state to false, disallowing them to view the dashboard and other components.
     setAuthenticated(false);
 
+    //Redirects user to the login screen.
     window.location.href = '/login';
   };
 
   useEffect(() => {
-    
+    //GET request to the backend to retrieve logged in user's profile information for display.
     axios.get('http://localhost:5000/api/users/profile', {
+      //Verifies the user is allowed to view information using JWT verification.
       headers: {
         Authorization: localStorage.getItem('token'),
       },
     })
+    //If user information is found, sets the user's date to the information retrieved from the GET request.
     .then((response) => {
       setUserData(response.data.user);
     })
+    //If there is an error, log the error to the console.
     .catch((error) => {
       console.error(error);
     });

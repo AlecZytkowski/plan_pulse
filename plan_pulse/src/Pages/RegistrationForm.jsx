@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 
 
 export const RegistrationForm = ({ toggleForm }) => {
+
+  //Setting the initial state of the registration form to empty values.
     const [formData, setFormData] = useState({
         username:'',
         email:'',
@@ -14,6 +16,7 @@ export const RegistrationForm = ({ toggleForm }) => {
 
     const navigate = useNavigate();
 
+  //Function for handling the event of the user changing the fields in the form.
     const handleChange = (e) => {
         setFormData({
             ...formData,
@@ -21,6 +24,7 @@ export const RegistrationForm = ({ toggleForm }) => {
         })
     };
 
+  //Allows user to swap between login and registration forms.
     const handleNavigation = (isExistingUser) => {
         if (isExistingUser) {
           navigate('/login');
@@ -28,26 +32,32 @@ export const RegistrationForm = ({ toggleForm }) => {
           navigate('/register');
         }
       };
-
+    
+    //Async function for registation submission
     const handleSubmit = async (e) => {
+        //Prevents user from submitting default/empty form.
         e.preventDefault();
-        try {
-          const response = await axios.post('http://localhost:5000/api/users/register', formData);
 
+        try {
+          //POST request to the back-end register user route by using the filled out formData
+          const response = await axios.post('http://localhost:5000/api/users/register', formData);
+          
+          //Checks if password is less than 8 characters.
           if (formData.password.length < 8) {
             alert('Password must be at least 8 characters long!');
             return;
           }
 
+          //Console logs and alerts server response of any errors in submission.
           console.log(response.data);
-
           alert(response.data.message);
 
+          //Redirect user to login if successful registration.
           window.location.replace('./login');
 
         } catch (error) {
+          //If registration fails, alert user of the response message.
           console.error(error.response.data)
-
           alert(`Login failed: ${error.response.data.message}`)
         }
       };

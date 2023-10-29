@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 export const WelcomePage = () => {
     const navigate = useNavigate();
 
+    //Allows user to navigate between login and register pages on the welcome screens.
     const handleNavigation = (isExistingUser) => {
       if (isExistingUser) {
         navigate('/login');

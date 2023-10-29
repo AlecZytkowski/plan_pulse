@@ -4,6 +4,7 @@ import { useState } from 'react';
 import axios from 'axios';
 
 export const CreateEvent = () => {
+  //State for creating a new event. Sets the initial values to empty values.
     const [eventData, setEventData] = useState({
       title: '',
       description: '',
@@ -11,6 +12,7 @@ export const CreateEvent = () => {
       endDateTime: '',
     });
   
+    //Function for handling user inputting information into the form.
     const handleInputChange = (e) => {
       setEventData({
         ...eventData,
@@ -18,10 +20,13 @@ export const CreateEvent = () => {
       });
     };
   
+    //Aync function for creating an event.
     const handleCreateEvent = async (e) => {
+      //Prevents user from submitting default/empty form.
       e.preventDefault();
   
       try {
+        //POST Request to the back-end and submits the event data, and verifies the user is authorized to make changes using JWT.
         const response = await axios.post(
           'http://localhost:5000/api/events/createEvent',
           eventData,
@@ -32,9 +37,11 @@ export const CreateEvent = () => {
           }
         );
   
+        //Alert user if the event was successfully created.
         console.log(response.data);
         alert(response.data.message)
   
+        //Set the event form back to default empty values.
         setEventData({
           title: '',
           description: '',
@@ -42,6 +49,7 @@ export const CreateEvent = () => {
           endDateTime: '',
         });
       } catch (error) {
+        //Log to console if there is an error.
         console.error(error);
       }
     };
