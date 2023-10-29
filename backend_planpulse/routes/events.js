@@ -8,19 +8,19 @@ const { authenticateUser } = require('../middleware/authMiddleware');
 // Route for event registration
 router.post('/createEvent', authenticateUser, async (req, res) => {
   try {
-    
+  
+  //When creating an event, passes the user's inputted information in the body of the request.
   const { title, description, startDateTime, endDateTime } = req.body;
-
   const createdBy = req.user._id;
 
-  // Create a new event.
+  // Create a new event, and follows the event Schema for the retrieved values.
   const newEvent = new Event({ title, description, startDateTime, endDateTime, createdBy });
 
-  // Save the event to the database
+  // Save the event to the database and alert user if successful.
   await newEvent.save();
-
   res.status(201).json({ message: 'Event registered successfully' });
 } catch (error) {
+  //Alert user if there is an error.
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
   }
@@ -30,11 +30,13 @@ router.post('/createEvent', authenticateUser, async (req, res) => {
 
 
 
-//Route for listing events
+//Route for listing current events.
 router.get('/myEvents', authenticateUser, async (req, res) => {
   try {
+    //Pass the current user's ID to find associated events to that ID.
     const userId = req.user._id;
 
+    //Sets the list of current user's events by finding events created by that User's ID. Sorted by start date and time.
     const userEvents = await Event.find({ createdBy: userId })
       .sort({ startDateTime: 1 });
 
@@ -47,6 +49,7 @@ router.get('/myEvents', authenticateUser, async (req, res) => {
 
 
 
+/*CURRENTLY UNUSED, ALLOWS USER TO SEARCH FOR A SPECIFIC EVENT*/
 // Route for searching events by ID
 router.get('/searchEvent/:eventId', async (req, res) => {
   try {
@@ -69,7 +72,7 @@ router.get('/searchEvent/:eventId', async (req, res) => {
 });
 
 
-
+/*CURRENTLY UNUSED ROUTE FOR ALLOWING THE USER TO EDIT AN EVENT THAT WAS CREATED*/
 //Route for editing events.
 router.put('/editEvent/:eventId', async (req, res) => {
   try {
@@ -106,7 +109,7 @@ router.put('/editEvent/:eventId', async (req, res) => {
 
 
 
-// Route for deleting events.
+//Route for deleting events.
 router.delete('/deleteEvent/:eventId', authenticateUser, async (req, res) => {
   try {
     const eventId = req.params.eventId;
